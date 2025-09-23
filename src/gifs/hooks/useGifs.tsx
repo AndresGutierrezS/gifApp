@@ -16,6 +16,10 @@ export const useGifs = () => {
             setGifs(gifsCache.current[term]);
             return;
         }
+
+        const gifs = await getGifsByQuery(term);
+        setGifs(gifs);
+        gifsCache.current[term] = gifs;
     }
 
     const handleSearch = async (query: string = '') => {
@@ -35,9 +39,9 @@ export const useGifs = () => {
   
     return {
         gifs,
+        previousTerm,
 
         handleTermClicked,
         handleSearch,
-        previousTerm,
   }
 }
